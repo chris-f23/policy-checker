@@ -1,0 +1,4 @@
+PUEDE CREAR "publicaciones" SI @usuario.vigencia ES VERDADERO
+PUEDE VER "publicaciones" SI @recurso.visibilidad ES "publico" O @recurso.creado_por ES @usuario.id
+PUEDE ELIMINAR "publicaciones" SI @recurso.creado_por ES @usuario.id
+PUEDE EDITAR "publicaciones" SI @recurso.creado_por ES @usuario.id

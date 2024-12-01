@@ -1,4 +1,32 @@
-PUEDE CREAR "publicaciones" SI @usuario.vigencia ES VERDADERO
-PUEDE VER "publicaciones" SI @recurso.visibilidad ES "publico" O @recurso.creado_por ES @usuario.id
-PUEDE ELIMINAR "publicaciones" SI @recurso.creado_por ES @usuario.id
-PUEDE EDITAR "publicaciones" SI @recurso.creado_por ES @usuario.id
+/* Tipo de recurso: historias */
+
+DENEGAR CREAR [historias] SI @usuario.bloqueado ES VERDADERO;
+
+PERMITIR VER [historias] SI
+    @recurso.visibilidad ES "publico" /* Comentario de ejemplo */
+    O @recurso.creado_por ES @usuario.id;
+
+PERMITIR EDITAR [historias] SI @recurso.creado_por ES @usuario.id;
+
+PERMITIR ELIMINAR [historias] SI
+    @recurso.creado_por ES @usuario.id /* Comentario de ejemplo */ O @usuario.es_admin ES VERDADERO;
+
+
+/* Tipo de recurso: comentarios */
+
+PERMITIR CREAR [comentarios] SI
+    @recurso.historia.visibilidad ES "publico"
+    /* Comentario de ejemplo */
+    O @recurso.historia.creado_por ES @usuario.id;
+
+PERMITIR VER [comentarios] SI
+    @recurso.historia.visibilidad ES "publico"
+    O @recurso.historia.creado_por ES @usuario.id;
+
+PERMITIR EDITAR [comentarios] SI @recurso.creado_por ES @usuario.id;
+
+PERMITIR ELIMINAR [comentarios] SI /* Comentario de ejemplo */
+    @recurso.historia.creado_por ES @usuario.id
+    O @recurso.creado_por ES @usuario.id
+    O @usuario.es_admin ES VERDADERO;
+
